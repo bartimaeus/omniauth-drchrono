@@ -6,7 +6,7 @@ module OmniAuth
       option :name, 'drchrono'
 
       option :client_options, {
-        :site => 'https://drchrono.com',
+        :site => 'https://drchrono.com/api',
         :authorize_url => 'https://drchrono.com/o/authorize',
         :token_url => 'https://drchrono.com/o/token/'
       }
@@ -19,12 +19,15 @@ module OmniAuth
 
       info do
         {
-          auth: oauth2_access_token,
-          doctor: raw_info['doctor'],
-          is_doctor: raw_info['is_doctor'],
-          is_staff: raw_info['is_staff'],
-          practice_group: raw_info['practice_group'],
-          username: raw_info['username']
+          'auth' => oauth2_access_token,
+          'doctor' => doctor,
+          'offices' => offices
+        }
+      end
+
+      extra do
+        {
+          'raw_info' => raw_info
         }
       end
 
@@ -45,10 +48,26 @@ module OmniAuth
         @raw_info ||= access_token.get(profile_endpoint).parsed
       end
 
+      def doctor
+        @doctor ||= access_token.get(doctors_endpoint).parsed
+      end
+
+      def offices
+        @offices ||= access_token.get(offices_endpoint).parsed['results']
+      end
+
       private
 
       def profile_endpoint
-        '/api/users/current'
+        '/users/current'
+      end
+
+      def doctors_endpoint
+        "/doctors/#{raw_info['doctor']}"
+      end
+
+      def offices_endpoint
+        '/offices'
       end
     end
   end

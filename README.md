@@ -6,6 +6,8 @@ A DrChrono OAuth2 strategy for OmniAuth.
 
 For more details, read the DrChrono documentation: https://www.drchrono.com/api/
 
+I found out after I pushed version 1 of this gem that another omniauth strategy already exists for DrChrono [https://github.com/johnnadeau/omniauth-drchrono](omniauth-drchrono). I renamed this project to `omniauth-drchrono-oauth2` to avoid confusion.
+
 ## Installation
 
 Add this line to your application's Gemfile:

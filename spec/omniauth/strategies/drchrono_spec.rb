@@ -10,7 +10,7 @@ describe OmniAuth::Strategies::DrChrono do
 
   describe '#client' do
     it 'has correct DrChrono site' do
-      expect(subject.client.site).to eq('https://drchrono.com')
+      expect(subject.client.site).to eq('https://drchrono.com/api')
     end
 
     it 'has correct `authorize_url`' do
@@ -40,12 +40,27 @@ describe OmniAuth::Strategies::DrChrono do
 
   describe '#info / #raw_info' do
     let(:access_token) { instance_double OAuth2::AccessToken }
-    let(:parsed_response) { Hash[:doctor => 1234] }
-    let(:profile_endpoint) { '/api/users/current' }
+
+    let(:parsed_response) { Hash['doctor' => 14234, 'id' => 43456, 'is_doctor' => true, 'is_staff' => false, 'practice_group' => 8765544, 'username' => 'drchrono'] }
+
+    let(:doctors_endpoint) { "/doctors/14234" }
+    let(:offices_endpoint) { '/offices' }
+    let(:profile_endpoint) { '/users/current' }
+
+    let(:doctors_response) { instance_double OAuth2::Response, parsed: parsed_response }
+    let(:offices_response) { instance_double OAuth2::Response, parsed: parsed_response }
     let(:profile_response) { instance_double OAuth2::Response, parsed: parsed_response }
 
     before :each do
       allow(subject).to receive(:access_token).and_return access_token
+
+      allow(access_token).to receive(:get)
+        .with(doctors_endpoint)
+        .and_return(doctors_response)
+
+      allow(access_token).to receive(:get)
+        .with(offices_endpoint)
+        .and_return(offices_response)
 
       allow(access_token).to receive(:get)
         .with(profile_endpoint)
@@ -53,12 +68,27 @@ describe OmniAuth::Strategies::DrChrono do
     end
 
     it 'returns parsed responses using access token' do
-      expect(subject.info).to have_key :doctor
-      expect(subject.info).to have_key :is_doctor
-      expect(subject.info).to have_key :is_staff
-      expect(subject.info).to have_key :practice_group
-      expect(subject.info).to have_key :username
+      expect(subject.info).to have_key 'auth'
+      expect(subject.info).to have_key 'doctor'
+      expect(subject.info).to have_key 'offices'
+
+      expect(subject.raw_info['doctor']).to eq(14234)
+      expect(subject.raw_info['id']).to eq(43456)
+      expect(subject.raw_info['is_doctor']).to be_truthy
+      expect(subject.raw_info['is_staff']).to be_falsey
+      expect(subject.raw_info['practice_group']).to eq(8765544)
+      expect(subject.raw_info['username']).to eq('drchrono')
     end
+  end
+
+  describe '#extra' do
+    let(:raw_info) { Hash[:foo => 'bar'] }
+
+    before :each do
+      allow(subject).to receive(:raw_info).and_return raw_info
+    end
+
+    specify { expect(subject.extra['raw_info']).to eq raw_info }
   end
 
   describe '#access_token' do
