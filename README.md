@@ -10,7 +10,7 @@ For more details, read the DrChrono documentation: https://www.drchrono.com/api/
 
 Add this line to your application's Gemfile:
 
-    gem 'omniauth-drchrono'
+    gem 'omniauth-drchrono-oauth2'
 
 And then execute:
 
@@ -18,7 +18,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install omniauth-drchrono
+    $ gem install omniauth-drchrono-oauth2
 
 ## Usage
 
