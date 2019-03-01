@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'omniauth-drchrono'
+require 'omniauth-drchrono-oauth2'
 
 describe OmniAuth::Strategies::DrChrono do
   subject { OmniAuth::Strategies::DrChrono.new(nil) }
