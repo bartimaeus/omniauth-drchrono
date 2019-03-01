@@ -1,6 +1,6 @@
 # OmniAuth DrChrono OAuth2 Strategy
 
-[![Build Status](https://travis-ci.org/bartimaeus/omniauth-drchrono.svg?branch=master)](https://travis-ci.org/bartimaeus/omniauth-drchrono)
+[![Build Status](https://travis-ci.org/bartimaeus/omniauth-drchrono-oauth2.svg?branch=master)](https://travis-ci.org/bartimaeus/omniauth-drchrono-oauth2)
 
 A DrChrono OAuth2 strategy for OmniAuth.
 
