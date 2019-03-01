@@ -115,7 +115,7 @@ describe OmniAuth::Strategies::DrChrono do
       end
 
       it 'sets default scope' do
-        expect(subject.authorize_params['scope']).to eq('user:read')
+        expect(subject.authorize_params['scope']).to eq('settings:read user:read')
       end
     end
   end

@@ -11,7 +11,7 @@ module OmniAuth
         :token_url => 'https://drchrono.com/o/token/'
       }
 
-      option :scope, 'user:read'
+      option :scope, 'settings:read user:read'
 
       uid do
         raw_info['id']
