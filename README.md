@@ -26,7 +26,7 @@ This is an example that you might put into a Rails initializer at `config/initia
 
 ```ruby
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :drchrono, ENV['DRCHRONO_CLIENT_ID'], ENV['DRCHRONO_CLIENT_SECRET']
+  provider :drchrono, ENV['DRCHRONO_CLIENT_ID'], ENV['DRCHRONO_CLIENT_SECRET'], :scope => 'user:read patients:read patients:summary:read'
 end
 ```
 
@@ -40,7 +40,7 @@ For more details, read the DrChrono documentation: https://www.drchrono.com/api/
 You can configure the scope option:
 
 ```ruby
-provider :drchrono, ENV['DRCHRONO_CLIENT_ID'], ENV['DRCHRONO_CLIENT_SECRET'], :scope => 'patients:read'
+provider :drchrono, ENV['DRCHRONO_CLIENT_ID'], ENV['DRCHRONO_CLIENT_SECRET'], :scope => 'user:read'
 ```
 
 ## Contributing
