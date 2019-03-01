@@ -43,9 +43,9 @@ describe OmniAuth::Strategies::DrChrono do
 
     let(:parsed_response) { Hash['doctor' => 14234, 'id' => 43456, 'is_doctor' => true, 'is_staff' => false, 'practice_group' => 8765544, 'username' => 'drchrono'] }
 
-    let(:doctors_endpoint) { "/doctors/14234" }
-    let(:offices_endpoint) { '/offices' }
-    let(:profile_endpoint) { '/users/current' }
+    let(:doctors_endpoint) { "doctors/14234" }
+    let(:offices_endpoint) { 'offices' }
+    let(:profile_endpoint) { 'users/current' }
 
     let(:doctors_response) { instance_double OAuth2::Response, parsed: parsed_response }
     let(:offices_response) { instance_double OAuth2::Response, parsed: parsed_response }

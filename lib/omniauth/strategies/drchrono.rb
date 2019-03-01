@@ -59,15 +59,15 @@ module OmniAuth
       private
 
       def profile_endpoint
-        '/users/current'
+        'users/current'
       end
 
       def doctors_endpoint
-        "/doctors/#{raw_info['doctor']}"
+        "doctors/#{raw_info['doctor']}"
       end
 
       def offices_endpoint
-        '/offices'
+        'offices'
       end
     end
   end
